@@ -6,7 +6,13 @@ from .models import CustomUser
 class CustomUserRegistrationForm(UserCreationForm):
     class Meta:
         model = CustomUser
-        fields = ['login', 'email', 'password1', 'password2']
+        fields = ['login', 'email', 'password1', 'password2', "telegram_id"]
+
+    def clean_login(self):
+        login = self.cleaned_data['login']
+        if CustomUser.objects.filter(login=login).exists():
+            raise forms.ValidationError("Пользователь с таким логином уже существует.")
+        return login
 
 class CustomAuthenticationForm(AuthenticationForm):
     username = forms.CharField(label="Логин")
