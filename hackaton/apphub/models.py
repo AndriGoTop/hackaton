@@ -4,7 +4,7 @@ from django.contrib.auth.models import AbstractUser
 
 class CustomUser(AbstractUser):
     username = models.CharField("Логин", max_length=50, unique=True)
-    email = models.EmailField("Почта", unique=True)
+    email = models.EmailField(unique=True)
     picture = models.ImageField(upload_to='media/user_images/', null=True, blank=True)
     subs = models.ManyToManyField("Subs", related_name="subs",blank=True)
     telegram_id = models.ForeignKey("Subs",on_delete=models.CASCADE,blank=True, null=True)

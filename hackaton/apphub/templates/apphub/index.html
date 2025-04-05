@@ -47,28 +47,15 @@
         <div class="auth-modal-content">
             <button class="auth-close">×</button>
             <h2>Регистрация</h2>
-            <form class="auth-form">
-                <div class="form-group">
-                    <label>Логин</label>
-                    <input type="text" required>
-                </div>
-                <div class="form-group">
-                    <label>Почта</label>
-                    <input type="email" required>
-                </div>
-                <div class="form-group">
-                    <label>Пароль</label>
-                    <input type="password" required>
-                </div>
-                <div class="form-group">
-                    <label>Повторите пароль</label>
-                    <input type="password" required>
-                </div>
-                <div class="form-group">
-                    <label>Telegram ID</label>
-                    <input type="text">
-                </div>
-                <button type="submit" class="auth-submit">Зарегистрироваться</button>
+            <form class="auth-form" method="POST" action="{% url 'index' %}">
+                {% csrf_token %}
+                { reg_form.non_field_errors }}
+                    {% for field in reg_form %}
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        {{ field }}
+                        {{ field.errors }}
+                    {% endfor %}
+                <button type="submit" class="auth-submit" name="register">Зарегистрироваться</button>
             </form>
             <div class="auth-switch">Есть учётная запись? <button class="switch-link">Войди!</button></div>
         </div>
@@ -77,16 +64,10 @@
         <div class="auth-modal-content">
             <button class="auth-close">×</button>
             <h2>Вход</h2>
-            <form class="auth-form">
-                <div class="form-group">
-                    <label>Логин</label>
-                    <input type="text" required>
-                </div>
-                <div class="form-group">
-                    <label>Пароль</label>
-                    <input type="password" required>
-                </div>
-                <button type="submit" class="auth-submit">Войти</button>
+            <form class="auth-form" method="POST" action="{% url 'index' %}">
+                {% csrf_token %}
+                {{ login_form.as_p }}
+                <button type="submit" class="auth-submit" name="login">Войти</button>
             </form>
             <div class="auth-switch">Нет учетной записи? <button class="switch-link">Зарегистрируйся!</button></div>
         </div>
@@ -117,19 +98,6 @@
         <div class="info-block-2">
             <h3 class="article-title">Новые открытия в физике</h3>
             <span class="article-author">Автор: Мария Сидорова</span>
-        </div>
-        <div class='info-block-3'> 
-            <img src="cat5.jpg" alt="Описание 3">
-        </div>
-        <div class='info-block-4'> 
-            <img src="cat.jpg" alt="Описание 3">
-        </div>
-        <div class='info-block-5'> 
-            <h3 class="article-title">Квантовый процессор</h3>
-            <span class="article-author">Автор: Билл Гейтс</span>
-        </div>
-        <div class='info-block-6'> 
-            <img src="cat4.jpg" alt="Описание 3">
         </div>
         <div class='info-block-7'> 
             <h3 class="article-title">Press F</h3>
