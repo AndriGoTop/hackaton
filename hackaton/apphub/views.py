@@ -26,10 +26,10 @@ def register_view(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect("home")
+            return redirect("index")
     else:
         form = CustomUserRegistrationForm()
-        return render(request, "main/register.html", {'form': form})
+    return render(request, "apphub/register.html", {'form': form})
 
 
 def login_view(request):
@@ -38,10 +38,10 @@ def login_view(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return redirect("home")
+            return redirect("index")
     else:
         form = CustomUserRegistrationForm()
-        return render(request, "main/login.html", {'form': form})
+    return render(request, "apphub/login.html", {'form': form})
 
 
 class NewsDetailView(DetailView):
@@ -59,4 +59,4 @@ def profile_view(request):
             return redirect('profile')
     else:
         form = ProfileForm(instance=request.user)
-    return render(request, 'main/profile.html', {'form': form})
+    return render(request, 'apphub/profile.html', {'form': form})

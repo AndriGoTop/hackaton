@@ -3,16 +3,17 @@ from django.contrib.auth.models import AbstractUser
 
 
 class CustomUser(AbstractUser):
-    login = models.CharField("Логин", max_length=50)
+    username = None
+    login = models.CharField("Логин", max_length=50, unique=True)
     email = models.EmailField("Почта", unique=True)
     picture = models.ImageField(upload_to='media/user_images/', null=True, blank=True)
     subs = models.ManyToManyField("Subs", related_name="subs",blank=True)
     telegram_id = models.ForeignKey("Subs",on_delete=models.CASCADE,blank=True, null=True)
 
     updated_at = models.DateTimeField(auto_now=True)
-
+    USERNAME_FIELD = 'login'
     def __str__(self):
-        return self.username
+        return self.login
 
 
 class Tags(models.Model):
