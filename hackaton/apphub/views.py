@@ -1,18 +1,14 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from .forms import CustomUserRegistrationForm, CustomAuthenticationForm, ProfileForm
-from django.views.generic import DetailView
 from .models import News
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
+
 
 def index(request):
-    # first_news = News.objects.filter(is_published=True).order_by('created_at')[:7]
-    # context = {
-    #
-    # }
-    # return render(request, 'apphub/index.html', {'news_list': first_news})
+    first_news = News.objects.filter(is_published=True).order_by('created_at')[:7]
     reg_form = CustomUserRegistrationForm()
     login_form = CustomAuthenticationForm(request, data=request.POST or None)
     if request.method == "POST":
@@ -20,7 +16,8 @@ def index(request):
             reg_form = CustomUserRegistrationForm(request.POST)
             if reg_form.is_valid():
                 user = reg_form.save(commit=False)
-                user.set_password(reg_form.cleaned_data['password'])
+                user.set_password(reg_form.cleaned_data['password1'])
+                print(reg_form.errors)
                 user.save()
                 login(request, user)
                 messages.success(request, "Регистрация прошла успешно.")
@@ -32,25 +29,25 @@ def index(request):
                 user = login_form.get_user()
                 login(request, user)
                 messages.success(request, "Вы вошли в систему.")
-                return redirect('index')  # замените на нужный маршрут
+                return redirect('index')
             else:
                 messages.error(request, "Неверный логин или пароль.")
 
     return render(request, 'apphub/index.html', {
         'reg_form': reg_form,
-        'login_form': login_form
+        'login_form': login_form,
+        'news_list': first_news,
     })
 
 
 def logout_view(request):
     logout(request)
-    return redirect("login")
+    return redirect("index")
 
 
-class NewsDetailView(DetailView):
-    model = News
-    template_name = 'news_detail.html'
-    context_object_name = 'news'
+def NewsDetailView(request, pk):
+    news = get_object_or_404(News, pk=pk, is_published=True)
+    return render(request, 'apphub/news_detail.html', {'news': news})
 
 
 @login_required

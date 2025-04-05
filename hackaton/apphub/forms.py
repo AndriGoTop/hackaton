@@ -15,6 +15,13 @@ class CustomUserRegistrationForm(UserCreationForm):
         model = CustomUser
         fields = ['username', 'email', 'password1', 'password2', "telegram_id"]
 
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.email = self.cleaned_data['email']
+        user.telegram_id = self.cleaned_data['telegram_id']
+        if commit:
+            user.save()
+        return user
 
 
 class CustomAuthenticationForm(AuthenticationForm):

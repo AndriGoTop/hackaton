@@ -6,10 +6,11 @@ class CustomUser(AbstractUser):
     username = models.CharField("Логин", max_length=50, unique=True)
     email = models.EmailField(unique=True)
     picture = models.ImageField(upload_to='media/user_images/', null=True, blank=True)
-    subs = models.ManyToManyField("Subs", related_name="subs",blank=True)
-    telegram_id = models.ForeignKey("Subs",on_delete=models.CASCADE,blank=True, null=True)
-
+    subs = models.ManyToManyField("Subs", related_name="subs", blank=True)
+    telegram_id = models.ForeignKey("Subs", on_delete=models.CASCADE, blank=True, null=True)
+    # favorite_news = models.ManyToManyField("News,", related_name="title", blank=True)
     updated_at = models.DateTimeField(auto_now=True)
+
     def __str__(self):
         return self.username
 
@@ -36,3 +37,6 @@ class News(models.Model):
 
 class Subs(models.Model):
     sub = models.CharField("tg", max_length=100)
+
+    def __str__(self):
+        return self.sub
