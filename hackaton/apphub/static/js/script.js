@@ -55,23 +55,23 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     document.querySelector("#register-modal .auth-form").addEventListener("submit", async function (e) {
-    e.preventDefault();
-    let formData = new FormData(this);
+        e.preventDefault();
+        let formData = new FormData(this);
+        formData.append("register", "1"); // Важно!
 
-    let response = await fetch("", {
-        method: "POST",
-        body: formData,
-        headers: {
-            "X-CSRFToken": formData.get("csrfmiddlewaretoken")
+        let response = await fetch("", {
+            method: "POST",
+            body: formData,
+            headers: {
+                "X-CSRFToken": formData.get("csrfmiddlewaretoken")
+            }
+        });
+
+        if (response.redirected) {
+            window.location.href = response.url;
+        } else {
+            alert("Ошибка регистрации.");
         }
-    });
-
-    if (response.redirected) {
-        window.location.href = response.url;
-    } else {
-        // обработка ошибок
-        alert("Ошибка регистрации.");
-    }
 });
 
     window.addEventListener('click', (e) => {
