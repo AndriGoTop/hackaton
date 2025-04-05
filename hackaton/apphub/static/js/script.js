@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', () => {
     const gridContainer = document.querySelector('.grid-container');
     setTimeout(() => gridContainer.classList.add('loaded'), 100);
@@ -53,9 +54,25 @@ document.addEventListener('DOMContentLoaded', () => {
         loginModal.classList.remove('show');
     };
 
-    document.querySelectorAll('.auth-close').forEach(btn => {
-        btn.addEventListener('click', closeModals);
-    });
+    document.querySelector("#register-modal .auth-form").addEventListener("submit", async function (e) {
+        e.preventDefault();
+        let formData = new FormData(this);
+        formData.append("register", "1"); // Важно!
+
+        let response = await fetch("", {
+            method: "POST",
+            body: formData,
+            headers: {
+                "X-CSRFToken": formData.get("csrfmiddlewaretoken")
+            }
+        });
+
+        if (response.redirected) {
+            window.location.href = response.url;
+        } else {
+            alert("Ошибка регистрации.");
+        }
+});
 
     window.addEventListener('click', (e) => {
         if(e.target.classList.contains('auth-modal')) {

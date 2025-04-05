@@ -15,24 +15,13 @@ class CustomUserRegistrationForm(UserCreationForm):
         model = CustomUser
         fields = ['username', 'email', 'password1', 'password2', "telegram_id"]
 
-    def clean_login(self):
-        username = self.cleaned_data.get('username')
-        if CustomUser.objects.filter(username=username).exists():
-            msg = mark_safe(
-                'Пользователь с таким логином уже существует. '
-                '<a href="login/">Войти</a>')
-            raise forms.ValidationError(msg)
-        return username
-
-    def clean_email(self):
-        email = self.cleaned_data.get("email")
-        if CustomUser.objects.filter(email=email).exists():
-            msg = mark_safe(
-                'Пользователь с такой почтой уже зарегистрирован. '
-                '<a href="login/">Войти</a>'
-            )
-            raise forms.ValidationError(msg)
-        return email
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.email = self.cleaned_data['email']
+        user.telegram_id = self.cleaned_data['telegram_id']
+        if commit:
+            user.save()
+        return user
 
 
 class CustomAuthenticationForm(AuthenticationForm):
