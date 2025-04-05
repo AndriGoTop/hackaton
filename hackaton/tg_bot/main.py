@@ -5,7 +5,7 @@ import telebot
 import os
 from time import sleep
 
-script_dir_db = os.path.dirname(os.path.abspath(file))
+script_dir_db = os.path.dirname(os.path.abspath(__file__))
 file_path_db = os.path.join(script_dir_db, 'db.sqlite3').split('/')
 file_path_db.pop(-2)
 file_path_db = '/'.join(file_path_db)
@@ -20,7 +20,7 @@ def start(message):
         'link': message.from_user.username,
         'id_user': message.from_user.id,
     }]
-    script_dir = os.path.dirname(os.path.abspath(file))
+    script_dir = os.path.dirname(os.path.abspath(__file__))
     file_path = os.path.join(script_dir, 'users.sqlite3')
     connection = sqlite3.connect(file_path)
     cursor = connection.cursor()
@@ -36,7 +36,7 @@ def start(message):
         cursor.execute('ROLLBACK;')
     connection.close()
 
-script_dir = os.path.dirname(os.path.abspath(file))
+script_dir = os.path.dirname(os.path.abspath(__file__))
 file_path = os.path.join(script_dir, 'users.sqlite3')
 connection = sqlite3.connect(file_path)
 cursor = connection.cursor()
