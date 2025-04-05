@@ -7,22 +7,22 @@ from django.utils.safestring import mark_safe
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = CustomUser
-        fields = ['login', 'email', 'picture', 'telegram_id']
+        fields = ['username', 'email', 'picture', 'telegram_id']
 
 
 class CustomUserRegistrationForm(UserCreationForm):
     class Meta:
         model = CustomUser
-        fields = ['login', 'email', 'password1', 'password2', "telegram_id"]
+        fields = ['username', 'email', 'password1', 'password2', "telegram_id"]
 
     def clean_login(self):
-        login = self.cleaned_data.get('login')
-        if CustomUser.objects.filter(login=login).exists():
+        username = self.cleaned_data.get('username')
+        if CustomUser.objects.filter(username=username).exists():
             msg = mark_safe(
                 'Пользователь с таким логином уже существует. '
                 '<a href="login/">Войти</a>')
             raise forms.ValidationError(msg)
-        return login
+        return username
 
     def clean_email(self):
         email = self.cleaned_data.get("email")
