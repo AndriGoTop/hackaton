@@ -15,6 +15,7 @@ class CustomUserRegistrationForm(UserCreationForm):
         model = CustomUser
         fields = ['username', 'email', 'password1', 'password2', "telegram_id"]
 
+<<<<<<< HEAD:hackaton/hackaton/apphub/forms.py
     def clean_login(self):
         username = self.cleaned_data.get('username')
         if CustomUser.objects.filter(username=username).exists():
@@ -33,6 +34,15 @@ class CustomUserRegistrationForm(UserCreationForm):
             )
             raise forms.ValidationError(msg)
         return email
+=======
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.email = self.cleaned_data['email']
+        user.telegram_id = self.cleaned_data['telegram_id']
+        if commit:
+            user.save()
+        return user
+>>>>>>> on_develop:hackaton/apphub/forms.py
 
 
 class CustomAuthenticationForm(AuthenticationForm):
