@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from .models import CustomUser
+from .models import CustomUser, Subs
 
 
 class ProfileForm(forms.ModelForm):
@@ -10,10 +10,16 @@ class ProfileForm(forms.ModelForm):
 
 
 class CustomUserRegistrationForm(UserCreationForm):
-    # telegram_input = forms.CharField(required=False, label="Telegram ID")
+    telegram_id = forms.CharField(label="Telegram ID", max_length=100)
+
     class Meta:
         model = CustomUser
         fields = ['username', 'email', 'password1', 'password2', 'telegram_id']
+
+    def clean_telegram_id(self):
+        telegram_input = self.cleaned_data['telegram_id']
+        sub_instance, created = Subs.objects.get_or_create(sub=telegram_input)
+        return sub_instance
 
     def save(self, commit=True):
         user = super().save(commit=False)
