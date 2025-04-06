@@ -129,7 +129,7 @@
 
                 {# info-block-1: текст #}
                 {% if news_list|length > 0 %}
-                <a href="{% url 'news_detail' news_list.0.pk %}">
+                <a class="font" href="{% url 'news_detail' news_list.0.pk %}">
                 <div class="info-block-1 clickable-card">
                     <h3 class="article-title">{{ news_list.0.title }}</h3>
                     <span class="article-author">Автор: {{ news_list.0.creator }}</span>
@@ -139,7 +139,7 @@
 
                 {# info-block-2: текст #}
                 {% if news_list|length > 1 %}
-                <a href="{% url 'news_detail' news_list.1.pk %}">
+                <a class="font" href="{% url 'news_detail' news_list.1.pk %}">
                 <div class="info-block-2">
                     <h3 class="article-title">{{ news_list.1.title }}</h3>
                     <span class="article-author">Автор: {{ news_list.1.creator }}</span>
@@ -149,7 +149,7 @@
 
                 {# info-block-3: изображение #}
                 {% if news_list|length > 2 and news_list.2.picture%}
-                <a href="{% url 'news_detail' news_list.2.pk %}">
+                <a class="font" href="{% url 'news_detail' news_list.2.pk %}">
                 <div class="info-block-3">
                     <img src="{{ news_list.2.picture.url }}" alt="{{ news_list.2.title }}">
                 </div>
@@ -158,7 +158,7 @@
 
                 {# info-block-4: изображение #}
                 {% if news_list|length > 3 and news_list.3.picture %}
-                <a href="{% url 'news_detail' news_list.3.pk %}">
+                <a class="font" href="{% url 'news_detail' news_list.3.pk %}">
                 <div class="info-block-4">
                     <img src="{{ news_list.3.picture.url }}" alt="{{ news_list.3.title }}">
                 </div>
@@ -166,7 +166,7 @@
 
                 {# info-block-5: текст #}
                 {% if news_list|length > 4 %}
-                <a href="{% url 'news_detail' news_list.4.pk %}">
+                <a class="font" href="{% url 'news_detail' news_list.4.pk %}">
                 <div class="info-block-5">
                     <h3 class="article-title">{{ news_list.4.title }}</h3>
                     <span class="article-author">Автор: {{ news_list.4.creator }}</span>
@@ -175,7 +175,7 @@
 
                 {# info-block-6: изображение #}
                 {% if news_list|length > 5 and news_list.5.image %}
-                    <a href="{% url 'news_detail' news_list.5.pk %}">
+                    <a class="font" href="{% url 'news_detail' news_list.5.pk %}">
                 <div class="info-block-6">
                     <img src="{{ news_list.5.picture.url }}" alt="{{ news_list.5.title }}">
                 </div>
@@ -183,7 +183,7 @@
 
                 {# info-block-7: текст #}
                 {% if news_list|length > 6 %}
-                <a href="{% url 'news_detail' news_list.6.pk %}">
+                <a class="font" href="{% url 'news_detail' news_list.6.pk %}">
                 <div class="info-block-7">
                     <h3 class="article-title">{{ news_list.6.title }}</h3>
                     <span class="article-author">Автор: {{ news_list.6.creator }}</span>
@@ -192,7 +192,7 @@
 
                 {# info-block-8: текст #}
                 {% if news_list|length > 7 %}
-                    <a href="{% url 'news_detail' news_list.7.pk %}">
+                    <a class="font" href="{% url 'news_detail' news_list.7.pk %}">
                 <div class="info-block-8">
                     <h3 class="article-title">{{ news_list.7.title }}</h3>
                     <span class="article-author">Автор: {{ news_list.7.creator }}</span>

@@ -305,6 +305,9 @@ body {
     margin-bottom: 10px;
     max-width: 80%;
 }
+.font{
+    text-decoration: none;
+}
 
 .article-author {
     position: absolute;
@@ -340,6 +343,7 @@ body {
 @media (max-width: 768px) {
     .article-title {
         font-size: 1em;
+        text-decoration: none;
     }
     .article-author {
         font-size: 0.8em;
