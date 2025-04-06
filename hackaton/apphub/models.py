@@ -8,7 +8,7 @@ class CustomUser(AbstractUser):
     picture = models.ImageField(upload_to='media/user_images/', null=True, blank=True)
     subs = models.ManyToManyField("Subs", related_name="subs", blank=True)
     telegram_id = models.ForeignKey("Subs", on_delete=models.CASCADE, blank=True, null=True)
-    # favorite_news = models.ManyToManyField("News,", related_name="title", blank=True)
+    favorite_news = models.ManyToManyField("News", related_name="create", blank=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
@@ -23,6 +23,7 @@ class Tags(models.Model):
 
 
 class News(models.Model):
+    creator = models.ForeignKey("CustomUser", on_delete=models.CASCADE, blank=True, null=True)
     title = models.CharField("Название", max_length=60)
     article = models.TextField()
     picture = models.ImageField(upload_to='media/product_images/', null=True, blank=True)

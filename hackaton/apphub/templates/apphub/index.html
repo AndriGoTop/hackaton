@@ -112,96 +112,97 @@
 
     <div class="">
         <section class="news-section">
-    <h2>Последние статьи</h2>
-         <div class="grid-container">
-        <div class="info-block-1 clickable-card">
-            <h3 class="article-title">Искусственный интеллект: развитие И тревоги. Взгляд в будущее</h3>
-            <span class="article-author">Автор: Гринин Леонид Ефимович</span>
-        </div>
-        <div class="info-block-2">
-            <h3 class="article-title">Новые открытия в физике</h3>
-            <span class="article-author">Автор: Мария Сидорова</span>
-        </div>
-        <div class='info-block-3'>
-            <img src="cat5.jpg" alt="Описание 3">
-        </div>
-        <div class='info-block-4'>
-            <img src="cat.jpg" alt="Описание 3">
-        </div>
-        <div class='info-block-5'>
-            <h3 class="article-title">Квантовый процессор</h3>
-            <span class="article-author">Автор: Билл Гейтс</span>
-        </div>
-        <div class='info-block-6'>
-            <img src="cat4.jpg" alt="Описание 3">
-        </div>
-        <div class='info-block-7'>
-            <h3 class="article-title">Press F</h3>
-            <span class="article-author">Автор: Паша Техник (Легнда)</span>
-        </div>
-        <div class='info-block-8'>
-            <h3 class="article-title">Искусственный интеллект</h3>
-            <span class="article-author">Автор: Месхе</span>
-        </div>
-    </div>
-<!--    <section>-->
-<!--    {% if news_list %}-->
-<!--        <div >-->
-<!--            {% for news in news_list %}-->
-<!--                <a href="{% url 'news_detail' news.pk %}" class="info-block-4 clickable-card">-->
-<!--                    <div class="info-block-2">-->
-<!--                    <h3 class="article-title">{{ news.title }}</h3>-->
-<!--                    <p>{{ news.article|truncatewords:30 }}</p>-->
-<!--                    </div>-->
-<!--                </a>-->
-<!--                    <p ><em >Опубликовано: {{ news.created_at|date:"d.m.Y H:i" }}</em></p>-->
+            <h2>Последние статьи</h2>
+            <div class="grid-container">
 
-<!--            {% empty %}-->
-<!--            <p>Пока нет опубликованных новостей.</p>-->
-<!--            {% endfor %}-->
-<!--        </div>-->
-<!--    {% else %}-->
-<!--        <p>Пока нет опубликованных статей.</p>-->
-<!--    {% endif %}-->
-<!--</section>-->
+                {# info-block-1: текст #}
+                {% if news_list|length > 0 %}
+                <a href="{% url 'news_detail' news_list.0.pk %}">
+                <div class="info-block-1 clickable-card">
+                    <h3 class="article-title">{{ news_list.0.title }}</h3>
+                    <span class="article-author">Автор: {{ news_list.0.creator }}</span>
+                </div>
+                </a>
+                {% endif %}
+
+                {# info-block-2: текст #}
+                {% if news_list|length > 1 %}
+                <a href="{% url 'news_detail' news_list.1.pk %}">
+                <div class="info-block-2">
+                    <h3 class="article-title">{{ news_list.1.title }}</h3>
+                    <span class="article-author">Автор: {{ news_list.1.creator }}</span>
+                </div>
+                </a>
+                {% endif %}
+
+                {# info-block-3: изображение #}
+                {% if news_list|length > 2 and news_list.2.picture%}
+                <a href="{% url 'news_detail' news_list.2.pk %}">
+                <div class="info-block-3">
+                    <img src="{{ news_list.2.picture.url }}" alt="{{ news_list.2.title }}">
+                </div>
+                    </a>
+                {% endif %}
+
+                {# info-block-4: изображение #}
+                {% if news_list|length > 3 and news_list.3.picture %}
+                <a href="{% url 'news_detail' news_list.3.pk %}">
+                <div class="info-block-4">
+                    <img src="{{ news_list.3.picture.url }}" alt="{{ news_list.3.title }}">
+                </div>
+                {% endif %}
+
+                {# info-block-5: текст #}
+                {% if news_list|length > 4 %}
+                <a href="{% url 'news_detail' news_list.4.pk %}">
+                <div class="info-block-5">
+                    <h3 class="article-title">{{ news_list.4.title }}</h3>
+                    <span class="article-author">Автор: {{ news_list.4.creator }}</span>
+                </div>
+                {% endif %}
+
+                {# info-block-6: изображение #}
+                {% if news_list|length > 5 and news_list.5.image %}
+                    <a href="{% url 'news_detail' news_list.5.pk %}">
+                <div class="info-block-6">
+                    <img src="{{ news_list.5.picture.url }}" alt="{{ news_list.5.title }}">
+                </div>
+                {% endif %}
+
+                {# info-block-7: текст #}
+                {% if news_list|length > 6 %}
+                <a href="{% url 'news_detail' news_list.6.pk %}">
+                <div class="info-block-7">
+                    <h3 class="article-title">{{ news_list.6.title }}</h3>
+                    <span class="article-author">Автор: {{ news_list.6.creator }}</span>
+                </div>
+                {% endif %}
+
+                {# info-block-8: текст #}
+                {% if news_list|length > 7 %}
+                    <a href="{% url 'news_detail' news_list.6.pk %}">
+                <div class="info-block-8">7
+                    <h3 class="article-title">{{ news_list.7.title }}</h3>
+                    <span class="article-author">Автор: {{ news_list.7.creator }}</span>
+                </div>
+                {% endif %}
+
+            </div>
+        </section>
+    </div>
+
     </div>
     <div class="infinite-scroll-wrapper">
-        <div class="infinite-scroll-track">
-            <div class="scroll-item">
-                <h4 class="card-title">История искусств</h4>
-                <span class="card-author">Автор: Алексей Иванов</span>
-            </div>
-            <div class="scroll-item">
-                <h4 class="card-title">Нейросетевые модели в диагностике заболеваний: новые горизонты медицины</h4>
-                <span class="card-author">Автор: Анна Викторовна Смирнова</span>
-            </div>
-            <div class="scroll-item">
-                <h4 class="card-title">Влияние изменения климата на биоразнообразие северных экосистем</h4>
-                <span class="card-author">Автор: Дмитрий Олегович Кузнецов</span>
-            </div>
-            <div class="scroll-item">
-                <h4 class="card-title">Квантовые алгоритмы и их применение в криптографии следующего поколения</h4>
-                <span class="card-author">Автор: Елена Сергеевна Михайлова</span>
-            </div>
-            
-            <div class="scroll-item">
-                <h4 class="card-title">История искусств</h4>
-                <span class="card-author">Автор: Алексей Иванов</span>
-            </div>
-            <div class="scroll-item">
-                <h4 class="card-title">Нейросетевые модели в диагностике заболеваний: новые горизонты медицины</h4>
-                <span class="card-author">Автор: Анна Викторовна Смирнова</span>
-            </div>
-            <div class="scroll-item">
-                <h4 class="card-title">Влияние изменения климата на биоразнообразие северных экосистем</h4>
-                <span class="card-author">Автор: Дмитрий Олегович Кузнецов</span>
-            </div>
-            <div class="scroll-item">
-                <h4 class="card-title">Квантовые алгоритмы и их применение в криптографии следующего поколения</h4>
-                <span class="card-author">Автор: Елена Сергеевна Михайлова</span>
-            </div>
+    <div class="infinite-scroll-track">
+        {% for article in news_list %}
+        <div class="scroll-item">
+            <h4 class="card-title">{{ article.title }}</h4>
+            <span class="card-author">Автор: {{ article.creator }}</span>
         </div>
+        {% endfor %}
     </div>
+</div>
+
     <script src="{% static 'js/script.js' %}"></script>
     <footer class="site-footer">
         <div class="footer-content">Все права защищены</div>

@@ -1,14 +1,14 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
 from .forms import CustomUserRegistrationForm, CustomAuthenticationForm, ProfileForm
-from .models import News
+from .models import News, Subs
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
 
 
 def index(request):
-    first_news = News.objects.filter(is_published=True).order_by('created_at')[:7]
+    news_list = News.objects.all()
     reg_form = CustomUserRegistrationForm()
     login_form = CustomAuthenticationForm(request, data=request.POST or None)
     if request.method == "POST":
@@ -16,6 +16,7 @@ def index(request):
             reg_form = CustomUserRegistrationForm(request.POST)
             if reg_form.is_valid():
                 user = reg_form.save(commit=False)
+
                 user.set_password(reg_form.cleaned_data['password1'])
                 print(reg_form.errors)
                 user.save()
@@ -36,7 +37,7 @@ def index(request):
     return render(request, 'apphub/index.html', {
         'reg_form': reg_form,
         'login_form': login_form,
-        'news_list': first_news,
+        'news_list': news_list,
     })
 
 
@@ -46,8 +47,8 @@ def logout_view(request):
 
 
 def NewsDetailView(request, pk):
-    news = get_object_or_404(News, pk=pk, is_published=True)
-    return render(request, 'apphub/news_detail.html', {'news': news})
+    news_list = get_object_or_404(News, pk=pk)
+    return render(request, 'apphub/new_details.html', {'news_list': news_list})
 
 
 @login_required
