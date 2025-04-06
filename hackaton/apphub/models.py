@@ -1,13 +1,18 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
+class Subs(models.Model):
+    sub = models.CharField("tg", max_length=100)
+
+    def __str__(self):
+        return self.sub
 
 class CustomUser(AbstractUser):
     username = models.CharField("Логин", max_length=50, unique=True)
     email = models.EmailField(unique=True)
     picture = models.ImageField(upload_to='media/user_images/', null=True, blank=True)
-    subs = models.ManyToManyField("Subs", related_name="subs", blank=True)
-    telegram_id = models.ForeignKey("Subs", on_delete=models.CASCADE, blank=True, null=True)
+    subs = models.ManyToManyField(Subs, related_name="subs", blank=True)
+    telegram_id = models.ForeignKey(Subs, on_delete=models.CASCADE, blank=True, null=True, related_name='users')
     favorite_news = models.ManyToManyField("News", related_name="create", blank=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -36,8 +41,3 @@ class News(models.Model):
         return self.title
 
 
-class Subs(models.Model):
-    sub = models.CharField("tg", max_length=100)
-
-    def __str__(self):
-        return self.sub
