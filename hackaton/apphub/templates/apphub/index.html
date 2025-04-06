@@ -47,7 +47,14 @@
             <a class="user-info"> {{ user.username }}</a>
                   <form method="post" action="{% url 'logout' %}">
                     {% csrf_token %}
-                    <button type="submit" class="button1 logout-button1">Выход</button>
+                    <button type="submit" class="button1 login-icon logout-button1" style="padding: 0; border: none; font: inherit;color: inherit;background-color: transparent;">
+                        <svg width="35" height="45" viewBox="0 0 46 51" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M14.4259 8.00001C14.4259 4.96244 16.8883 2.5 19.9259 2.5H38C41.0375 2.5 43.5 4.96243 43.5 8V24.1632V42.022C43.5 45.0596 41.0375 47.522 38 47.522H19.9259C16.8883 47.522 14.4259 45.0596 14.4259 42.022V8.00001Z" stroke="#D9D9D9" stroke-width="5" />
+                        <rect x="8.51855" y="9.32614" width="18.7407" height="32.2176" fill="#0A1855" />
+                        <path d="M0 25.4349L12.1389 37.1828V13.687L0 25.4349Z" fill="#D9D9D9" />
+                        <rect width="17.8889" height="5.08699" transform="matrix(-1 0 0 1 28.1111 22.0436)" fill="#D9D9D9" />
+                        </svg>
+            </button>
                   </form>
 
         {% endif %}
@@ -111,7 +118,12 @@
     </div>
 
     <div class="">
-        <section class="news-section">
+        <section class="news-section" style="
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+">
             <h2>Последние статьи</h2>
             <div class="grid-container">
 
@@ -180,8 +192,8 @@
 
                 {# info-block-8: текст #}
                 {% if news_list|length > 7 %}
-                    <a href="{% url 'news_detail' news_list.6.pk %}">
-                <div class="info-block-8">7
+                    <a href="{% url 'news_detail' news_list.7.pk %}">
+                <div class="info-block-8">
                     <h3 class="article-title">{{ news_list.7.title }}</h3>
                     <span class="article-author">Автор: {{ news_list.7.creator }}</span>
                 </div>
