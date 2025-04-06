@@ -8,7 +8,7 @@ from django.shortcuts import get_object_or_404
 
 
 def index(request):
-    news_list = News.objects.all()
+    news_list = News.objects.all().order_by('-created_at')
     reg_form = CustomUserRegistrationForm()
     login_form = CustomAuthenticationForm(request, data=request.POST or None)
     if request.method == "POST":
